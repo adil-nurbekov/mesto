@@ -1,0 +1,18 @@
+.profile__profession {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  margin-left: 24px;
+}
+@media (max-width: 767px) {
+  .profile__profession {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,7 @@
+.element__container {
+  box-sizing: border-box;
+  max-width: 282px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 30px;
+}
