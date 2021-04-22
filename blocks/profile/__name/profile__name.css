@@ -7,6 +7,10 @@
   margin: 0;
   color: #ffffff;
   margin-left: 24px;
+  text-overflow: ellipsis;
+  max-width: 294px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 @media (max-width: 767px) {
   .profile__name {
