@@ -1,6 +1,6 @@
 .profile__image {
-  max-width: 168.75px;
-
+  max-width: 127.75px;
+  /* object-fit: cover; */
   border-radius: 50%;
 }
 @media (max-width: 767px) {

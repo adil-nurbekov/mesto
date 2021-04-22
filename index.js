@@ -1,47 +1,32 @@
-const  openPupupButton = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
-const closePopupButton = document.querySelector('.popup__close');
-let profileName = document.querySelector('.profile__name');
-let profileJob = document.querySelector('.profile__profession');
+const openPupupButton = document.querySelector(".profile__edit-button");
+const popup = document.querySelector(".popup");
+const closePopupButton = document.querySelector(".popup__close");
+const savePopupButton = document.querySelector(".popup__save");
 
+let profileName = document.querySelector(".profile__name");
+let profileJob = document.querySelector(".profile__profession");
 
+let inputName = document.querySelector(".popup__name");
+let inputJob = document.querySelector(".popup__name-job");
 
-let nameInput = document.querySelector('.popup__name');
-let professionInput = document.querySelector('.popup__profession');
-
-function addPopup(event){
-    event.preventDefault();
-    popup.classList.add('popup__is-opened');
-    let name = profileName.value;
-let job = profileJob.value;
-
-nameInput.textContent = name;
-professionInput.textContent = job
-
-}
-openPupupButton. addEventListener('click', addPopup);
-
-
-function closePopup(event){
-    event.preventDefault();
-    popup.classList.remove('popup__is-opened')
+function addPopup(event) {
+  event.preventDefault();
+  popup.classList.add("popup_state_opened");
 }
 
-closePopupButton.addEventListener('click',closePopup);
-
-const saveButton = document.querySelector('.popup__save');
-
-
-
-function addText () {
-let name = nameInput.value;
-let job = professionInput.value;
-
-profileName.textContent = name;
-profileJob.textContent = job
+function closePopup(event) {
+  event.preventDefault();
+  popup.classList.remove("popup_state_opened");
 }
-saveButton.addEventListener('click',addText);
-saveButton.addEventListener('click',closePopup);
 
+function addText(event) {
+  event.preventDefault();
+  popup.classList.remove("popup_state_opened");
 
+  profileName.textContent = inputName.value;
+  profileJob.textContent = inputJob.value;
+}
 
+openPupupButton.addEventListener("click", addPopup);
+closePopupButton.addEventListener("click", closePopup);
+savePopupButton.addEventListener("click", addText);

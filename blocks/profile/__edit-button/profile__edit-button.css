@@ -3,7 +3,7 @@
   justify-items: center;
   width: 24px;
   height: 24px;
-  background: url(../../../images/Vector.png);
+  background: url(../../../images/vector.png);
   background-repeat: no-repeat;
   margin-left: 18px;
   background-size: 10px 10px;
@@ -16,4 +16,7 @@
     width: 18px;
     height: 18px;
   }
+}
+.profile__edit-button:hover {
+  opacity: 0.6;
 }
