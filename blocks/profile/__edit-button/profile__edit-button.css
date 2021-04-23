@@ -1,9 +1,10 @@
 .profile__edit-button {
+  flex: none;
   align-items: center;
   justify-items: center;
   width: 24px;
   height: 24px;
-  background: url(../../../images/vector.png);
+  background: url(../../../images/vector.svg);
   background-repeat: no-repeat;
   margin-left: 18px;
   background-size: 10px 10px;
