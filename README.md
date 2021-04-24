@@ -8,4 +8,4 @@
 
 - В будущем есть планы доработать проект и создать возможность добавлять фото, и изменять цвет "лайка" при активации.
 
-- [Ссылка на проект в Github](https://github.com/adil-nurdekov/mesto.git)
+- [Ссылка на проект в Github](https://adil-nurdekov.github.io/mesto/)
