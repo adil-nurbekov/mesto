@@ -1,4 +1,8 @@
 .element__image {
+  display: block;
   margin-bottom: 0px;
   object-fit: cover;
+  object-position: center;
+  max-width: 232px;
+  max-height: 232px;
 }

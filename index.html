@@ -36,18 +36,23 @@
         ></button>
       </section>
       <section class="elements">
-        <article class="element">
+        <!-- <article class="element">
           <img
             class="element__image"
             src="./images/kirill-pershin-1088404-unsplash-1.jpg"
             alt="здесь должно быть изображение"
           />
           <div class="element__container">
-            <h2 class="element__title">Карачаевск</h2>
+           <h2 class="element__title">Карачаевск</h2> 
             <button
               type="button"
               aria-label="лайк"
               class="element__logo hover"
+            ></button>
+            <button
+              type="button"
+              aria-label="корзина"
+              class="element__delete-button hover"
             ></button>
           </div>
         </article>
@@ -58,11 +63,16 @@
             alt="здесь должно быть изображение"
           />
           <div class="element__container">
-            <h2 class="element__title">Гора Эльбрус</h2>
+            <h2 class="element__title">Гора Эльбрус</h2> 
             <button
               type="button"
               aria-label="лайк"
               class="element__logo hover"
+            ></button>
+            <button
+              type="button"
+              aria-label="корзина"
+              class="element__delete-button hover"
             ></button>
           </div>
         </article>
@@ -73,11 +83,16 @@
             alt="здесь должно быть изображение"
           />
           <div class="element__container">
-            <h2 class="element__title">Домбай</h2>
+             <h2 class="element__title">Домбай</h2> 
             <button
               type="button"
               aria-label="лайк"
               class="element__logo hover"
+            ></button>
+            <button
+              type="button"
+              aria-label="корзина"
+              class="element__delete-button hover"
             ></button>
           </div>
         </article>
@@ -88,11 +103,16 @@
             alt="здесь должно быть изображение"
           />
           <div class="element__container">
-            <h2 class="element__title">Гора Эльбрус</h2>
+             <h2 class="element__title">Гора Эльбрус</h2> 
             <button
               type="button"
               aria-label="лайк"
               class="element__logo hover"
+            ></button>
+            <button
+              type="button"
+              aria-label="корзина"
+              class="element__delete-button hover"
             ></button>
           </div>
         </article>
@@ -103,11 +123,16 @@
             alt="здесь должно быть изображение"
           />
           <div class="element__container">
-            <h2 class="element__title">Домбай</h2>
+             <h2 class="element__title">Домбай</h2>
             <button
               type="button"
               aria-label="лайк"
               class="element__logo hover"
+            ></button>
+            <button
+              type="button"
+              aria-label="корзина"
+              class="element__delete-button hover"
             ></button>
           </div>
         </article>
@@ -118,44 +143,116 @@
             alt="здесь должно быть изображение"
           />
           <div class="element__container">
-            <h2 class="element__title">Карачаево-Черкесия</h2>
+             <h2 class="element__title">Карачаево-Черкесия</h2> 
             <button
               type="button"
               aria-label="лайк"
               class="element__logo hover"
             ></button>
+            <button
+              type="button"
+              aria-label="корзина"
+              class="element__delete-button hover"
+            ></button>
           </div>
-        </article>
+        </article> -->
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-    <div class="popup">
-      <div class="popup__content">
-        <button type="button" class="popup__close hover"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="#" name="acc-form" class="popup__form">
+    <div class="popup-photo">
+      <div class="popup-photo__content">
+        <button type="button" class="popup-photo__close hover"></button>
+        <figure class="sign">
+          <p><img class="popup-photo-img" src="#"alt="Картинка"></p>
+          <figcaption class ='popup-photo-text'>text</figcaption>
+         </figure>
+      </div>
+    </div>
+
+
+
+    <div class="popup-image">
+      <div class="popup-image__content popup__content">
+        <button type="button" class="popup-image__close hover"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form action="#" name="image-form" class="popup-image__form">
           <input
             required
-            placeholder="Ваше имя"
-            class="popup__input popup__input_type_name"
-            name="acc-name"
+            placeholder="Название"
+            class="popup__input popup-image__input_type_name"
+            name="image-name"
             type="text"
             value=""
           />
           <input
             required
-            placeholder="Ваша профессия"
-            name="acc-prof"
-            class="popup__input popup__input_type_job"
+            placeholder="Ссылка на картинку"
+            name="image-link"
+            class="popup__input popup-image__input_type_link"
             type="text"
             value=""
           />
-          <input type="submit" value="Сохранить" class="popup__save hover" />
+          <input
+            type="submit"
+            value="Создать"
+            class="popup__save popup-image-save hover"
+          />
         </form>
       </div>
     </div>
+
+    <div class="popup">
+    <div class="popup__content">
+      <button type="button" class="popup__close hover"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form action="#" name="acc-form" class="popup__form">
+        <input
+          required
+          placeholder="Ваше имя"
+          class="popup__input popup__input_type_name"
+          name="acc-name"
+          type="text"
+          value=""
+        />
+        <input
+          required
+          placeholder="Ваша профессия"
+          name="acc-prof"
+          class="popup__input popup__input_type_job"
+          type="text"
+          value=""
+        />
+        <input type="submit" value="Сохранить" class="popup__save hover" />
+      </form>
+    </div>
+
+
+
+    <template class="template">
+      <article class="element">
+        <button
+        type="button"
+        aria-label="корзина"
+            class="element__delete-button hover"
+          ></button>
+        <div class = element__image-container>
+        <img class="element__image"/>
+      </div>
+        <div class="element__container">
+          <h2 class="element__title">Image</h2>
+          <button
+            type="button"
+            aria-label="лайк"
+            class="element__logo hover"
+          ></button>
+          
+        </div>
+      </article>
+          </template>
+    
+
     <script src="./script/index.js"></script>
   </body>
 </html>
