@@ -164,22 +164,25 @@
     <div class="popup-photo">
       <div class="popup-photo__content">
         <button type="button" class="popup-photo__close hover"></button>
-        <figure class="sign">
-          <p><img class="popup-photo-img" src="#" alt="Картинка" /></p>
+        <figure class="popup-photo__image">
+          <img class="popup-photo-img" src="#" alt="Картинка" />
           <figcaption class="popup-photo-text">text</figcaption>
         </figure>
       </div>
     </div>
 
-    <div class="popup-image">
-      <div class="popup-image__content popup__content">
-        <button type="button" class="popup-image__close hover"></button>
+    <div class="popup popup__image_add">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close popup__close_image hover"
+        ></button>
         <h2 class="popup__title">Новое место</h2>
         <form action="#" name="image-form" class="popup-image__form">
           <input
             required
             placeholder="Название"
-            class="popup__input popup-image__input_type_name"
+            class="popup__input popup__input_type_img"
             name="image-name"
             type="text"
             value=""
@@ -188,22 +191,21 @@
             required
             placeholder="Ссылка на картинку"
             name="image-link"
-            class="popup__input popup-image__input_type_link"
+            class="popup__input popup__input_type_link"
             type="text"
             value=""
           />
-          <input
-            type="submit"
-            value="Создать"
-            class="popup__save popup-image-save hover"
-          />
+          <input type="submit" value="Создать" class="popup__save hover" />
         </form>
       </div>
     </div>
 
-    <div class="popup">
+    <div class="popup popup__profile_add">
       <div class="popup__content">
-        <button type="button" class="popup__close hover"></button>
+        <button
+          type="button"
+          class="popup__close popup__close_profile hover"
+        ></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="#" name="acc-form" class="popup__form">
           <input

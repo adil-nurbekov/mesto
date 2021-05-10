@@ -36,20 +36,20 @@ const deleteButton = document.querySelector(".element__delete-button");
 const elements = document.querySelector(".elements");
 
 const openPupupButton = document.querySelector(".profile__edit-button");
-const popup = document.querySelector(".popup");
-const closePopupButton = document.querySelector(".popup__close");
+const popup = document.querySelector(".popup__profile_add");
+const closePopupButton = document.querySelector(".popup__close_profile");
 const addImageButton = document.querySelector(".profile__add-button");
 let profileName = document.querySelector(".profile__name");
 let profileJob = document.querySelector(".profile__profession");
 
 let inputName = document.querySelector(".popup__input_type_name");
 let inputJob = document.querySelector(".popup__input_type_job");
-const popupImage = document.querySelector(".popup-image");
+const popupImage = document.querySelector(".popup__image_add");
 
-const closePopupImageButton = document.querySelector(".popup-image__close");
+const closePopupImageButton = document.querySelector(".popup__close_image");
 
-const inputImage = document.querySelector(".popup-image__input_type_name");
-const inputImageLink = document.querySelector(".popup-image__input_type_link");
+const inputImage = document.querySelector(".popup__input_type_img");
+const inputImageLink = document.querySelector(".popup__input_type_link");
 const element = document.querySelector(".element");
 const popupImageSave = document.querySelector(".popup-image__form");
 
@@ -63,13 +63,6 @@ const popupPhoto = document.querySelector(".popup-photo");
 const popupPhotoButton = document.querySelector(".popup-photo__close");
 const popupPhotoZoom = document.querySelector(".popup-photo-img");
 const popupPhotoText = document.querySelector(".popup-photo-text");
-
-// function photoZoom() {
-//   popupPhoto.classList.add(".popup-photo_open");
-//   popupPhotoZoom.src = linkImage.src;
-//   console.log("Hi!");
-// }
-// linkImage.addEventListener("click", photoZoom);
 
 // Создание списка//
 function createCards(cardText) {
@@ -85,12 +78,13 @@ function createCards(cardText) {
     .addEventListener("click", addPhoto);
 
   function addPhoto() {
-    popupPhoto.classList.add("popup-photo_open");
+    popupPhoto.classList.add("popup-photo__open");
     popupPhotoZoom.src = cardText.link;
     popupPhotoText.textContent = cardText.name;
+    console.log("hi");
 
     function closePhotoPopup() {
-      popupPhoto.classList.remove("popup-photo_open");
+      popupPhoto.classList.remove("popup-photo__open");
     }
     popupPhotoButton.addEventListener("click", closePhotoPopup);
   }
@@ -145,21 +139,21 @@ initialCards.forEach(function (currentCards) {
 });
 
 function removePopupImage() {
-  popupImage.classList.remove("popup-image_open");
+  popupImage.classList.remove("popup-open");
 }
 
 function addPopupImage() {
-  popupImage.classList.add("popup-image_open");
+  popupImage.classList.add("popup-open");
 }
 function addPopup() {
-  popup.classList.add("popup_open");
+  popup.classList.add("popup-open");
 
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 }
 
 function closePopup() {
-  popup.classList.remove("popup_open");
+  popup.classList.remove("popup-open");
 }
 
 function addText(e) {
