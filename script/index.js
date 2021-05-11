@@ -30,7 +30,7 @@ const deleteButton = document.querySelector(".element__delete-button");
 const elements = document.querySelector(".elements");
 
 const openPupupButton = document.querySelector(".profile__edit-button");
-const popup = document.querySelector(".popup__profile_add");
+const popup = document.querySelector(".popup_profile_add");
 const closePopupButton = document.querySelector(".popup__close_profile");
 const addImageButton = document.querySelector(".profile__add-button");
 let profileName = document.querySelector(".profile__name");
