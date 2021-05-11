@@ -25,7 +25,7 @@ const initialCards = [
   },
 ];
 
-let popupButtonSave = document.querySelector(".popup__form");
+let popupButtonSave = document.querySelector(".popup__form_profile");
 const deleteButton = document.querySelector(".element__delete-button");
 const elements = document.querySelector(".elements");
 
@@ -45,7 +45,7 @@ const closePopupImageButton = document.querySelector(".popup__close_image");
 const inputImage = document.querySelector(".popup__input_type_img");
 const inputImageLink = document.querySelector(".popup__input_type_link");
 const element = document.querySelector(".element");
-const popupImageSave = document.querySelector(".popup-image__form");
+const popupImageSave = document.querySelector(".popup__form_image");
 
 const container = document.querySelector(".element__container");
 
