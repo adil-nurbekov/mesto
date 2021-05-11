@@ -37,7 +37,7 @@
 
 @import url(../blocks/popup-open/popup-open.css);
 
-@import url(../blocks/popup-photo/__content/popup-photo__contant.css);
+@import url(../blocks/popup-photo/__content/popup-photo__content.css);
 @import url(../blocks/popup-photo/popup-photo.css);
 @import url(../blocks/popup-photo/__open/popup-photo__open.css);
 @import url(../blocks/popup-photo/__close/popup-photo__close.css);

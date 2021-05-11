@@ -107,7 +107,7 @@ function addImage(e) {
     .querySelector(".element")
     .cloneNode(true);
   newText.querySelector(".element__title").textContent = inputImage.value;
-  newText.querySelector(".element__image").src = inputImage.value;
+  newText.querySelector(".element__image").src = inputImageLink.value;
   // кнопка лайка
   newText
     .querySelector(".element__logo")
