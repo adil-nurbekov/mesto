@@ -1,3 +1,4 @@
+// переменные массива данных
 const initialCards = [
   {
     name: "Архыз",
@@ -24,41 +25,49 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
-let popupButtonSave = document.querySelector(".popup__form_profile");
-const deleteButton = document.querySelector(".element__delete-button");
+// переменные секций элемент и элементс
 const elements = document.querySelector(".elements");
+const element = document.querySelector(".element");
+const buttonTrash = document.querySelector(".element__delete-button");
+const popupProfileEditButton = document.querySelector(".profile__edit-button");
+const profileName = document.querySelector(".profile__name");
+const profileJob = document.querySelector(".profile__profession");
+const popupImageAddButton = document.querySelector(".profile__add-button");
+//
 
-const openPupupButton = document.querySelector(".profile__edit-button");
-const popup = document.querySelector(".popup_profile_add");
-const closePopupButton = document.querySelector(".popup__close_profile");
-const addImageButton = document.querySelector(".profile__add-button");
-let profileName = document.querySelector(".profile__name");
-let profileJob = document.querySelector(".profile__profession");
+// переменные попапа профайла
+const popupProfile = document.querySelector(".popup_profile_add");
+const popupProfileSaveButton = document.querySelector(".popup__form_profile");
+const popupProfileCloseButton = document.querySelector(".popup__close_profile");
+const inputName = document.querySelector(".popup__input_type_name");
+const inputJob = document.querySelector(".popup__input_type_job");
+//
 
-let inputName = document.querySelector(".popup__input_type_name");
-let inputJob = document.querySelector(".popup__input_type_job");
+// переманные попапа добавления картинок
 const popupImage = document.querySelector(".popup_image_add");
-
-const closePopupImageButton = document.querySelector(".popup__close_image");
-
+const popupImageCloseButton = document.querySelector(".popup__close_image");
 const inputImage = document.querySelector(".popup__input_type_img");
 const inputImageLink = document.querySelector(".popup__input_type_link");
-const element = document.querySelector(".element");
-const popupImageSave = document.querySelector(".popup__form_image");
+const popupImageSaveButton = document.querySelector(".popup__form_image");
+//
+
+// переменная темплейт
+const cardsTemplate = document.querySelector(".template");
+//
 
 const container = document.querySelector(".element__container");
 
-const cardsTemplate = document.querySelector(".template");
 const titleImage = cardsTemplate.content.querySelector(".element__title");
 const linkImage = cardsTemplate.content.querySelector(".element__image");
 
+//переменные попапа увеличения картинки
 const popupPhoto = document.querySelector(".popup-photo");
-const popupPhotoButton = document.querySelector(".popup-photo__close");
-const popupPhotoZoom = document.querySelector(".popup-photo-img");
-const popupPhotoText = document.querySelector(".popup-photo-text");
+const popupPhotoCloseButton = document.querySelector(".popup-photo__close");
+const popupPhotoZoom = document.querySelector(".popup-photo__image");
+const popupPhotoText = document.querySelector(".popup-photo__text");
+//
 
-// Создание списка//
+// создание списка//
 function createCards(cardText) {
   const createCardsTemplate = cardsTemplate.content
     .querySelector(".element")
@@ -66,65 +75,71 @@ function createCards(cardText) {
   createCardsTemplate.querySelector(".element__title").textContent =
     cardText.name;
   createCardsTemplate.querySelector(".element__image").src = cardText.link;
-  //попап картинки
   createCardsTemplate
     .querySelector(".element__image")
-    .addEventListener("click", addPhoto);
+    .setAttribute("alt", "Ой, что-то пошло не так...");
+  //
 
-  function addPhoto() {
-    popupPhoto.classList.add("popup-photo__open");
-    popupPhotoZoom.src = cardText.link;
-    popupPhotoText.textContent = cardText.name;
-    console.log("hi");
+  // попап картинки
+  createCardsTemplate
+    .querySelector(".element__image")
+    .addEventListener("click", function () {
+      popupPhotoZoom.src = cardText.link;
+      popupPhotoText.textContent = cardText.name;
+      openPopup(popupPhoto);
+      // popupPhoto.classList.add("popup-photo__open");
+    });
 
-    function closePhotoPopup() {
-      popupPhoto.classList.remove("popup-photo__open");
-    }
-    popupPhotoButton.addEventListener("click", closePhotoPopup);
+  function closePhotoPopup() {
+    popupPhoto.classList.remove("popup-photo__open");
   }
+  popupPhotoCloseButton.addEventListener("click", closePhotoPopup);
 
   // кнопка лайка
   createCardsTemplate
     .querySelector(".element__logo")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("element__logo_active");
-      console.log(evt, "hello");
-    });
+    .addEventListener("click", toggleClass);
   // кнопка удаления
   createCardsTemplate
     .querySelector(".element__delete-button")
-    .addEventListener("click", function (e) {
-      e.target.closest(".element").remove();
-      console.log("hello", e);
-    });
+    .addEventListener("click", removeCard);
   elements.append(cardsTemplate);
   return createCardsTemplate;
 }
-
+// функция добавления новых карточек
 function addImage(e) {
   e.preventDefault();
-  const newText = cardsTemplate.content
-    .querySelector(".element")
-    .cloneNode(true);
-  newText.querySelector(".element__title").textContent = inputImage.value;
-  newText.querySelector(".element__image").src = inputImageLink.value;
-  // кнопка лайка
-  newText
-    .querySelector(".element__logo")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("element__logo_active");
-      console.log(evt, "hello");
-    });
-  // кнопка удаления
-  newText
-    .querySelector(".element__delete-button")
-    .addEventListener("click", function (e) {
-      e.target.closest(".element").remove();
-      console.log("hello", e);
-    });
-  elements.prepend(newText);
-  removePopupImage();
+  const name = inputImage.value;
+  const link = inputImageLink.value;
+  const card = createCards({ name, link });
+  elements.prepend(card);
+  popupImageSaveButton.reset();
+  closePopup(popupImage);
 }
+//
+
+// функция добавления лайка
+function toggleClass(evt) {
+  evt.target.classList.toggle("element__logo_active");
+}
+//
+
+// функция удаления карточки
+function removeCard(e) {
+  e.target.closest(".element").remove();
+}
+
+// функция закрытия попапа
+function closePopup(popup) {
+  popup.classList.remove("popup-open");
+}
+//
+
+// функция открытия попапа
+function openPopup(popup) {
+  popup.classList.add("popup-open");
+}
+//
 
 // Начальный список
 initialCards.forEach(function (currentCards) {
@@ -132,35 +147,31 @@ initialCards.forEach(function (currentCards) {
   elements.append(current);
 });
 
-function removePopupImage() {
-  popupImage.classList.remove("popup-open");
-}
+// лисенеры
+popupImageSaveButton.addEventListener("submit", addImage);
 
-function addPopupImage() {
-  popupImage.classList.add("popup-open");
-}
-function addPopup() {
-  popup.classList.add("popup-open");
-
+popupProfileEditButton.addEventListener("click", function () {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-}
+  openPopup(popupProfile);
+});
 
-function closePopup() {
-  popup.classList.remove("popup-open");
-}
+popupProfileCloseButton.addEventListener("click", function () {
+  closePopup(popupProfile);
+});
 
-function addText(e) {
+popupProfileSaveButton.addEventListener("submit", function (e) {
   e.preventDefault();
-
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
-  closePopup();
-}
+  closePopup(popupProfile);
+});
 
-popupImageSave.addEventListener("submit", addImage);
-openPupupButton.addEventListener("click", addPopup);
-closePopupButton.addEventListener("click", closePopup);
-popupButtonSave.addEventListener("submit", addText);
-closePopupImageButton.addEventListener("click", removePopupImage);
-addImageButton.addEventListener("click", addPopupImage);
+popupImageCloseButton.addEventListener("click", function () {
+  closePopup(popupImage);
+});
+
+popupImageAddButton.addEventListener("click", function () {
+  openPopup(popupImage);
+});
+//
