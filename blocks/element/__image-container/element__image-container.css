@@ -3,3 +3,6 @@
   max-height: 282px;
   overflow: hidden;
 }
+.element__image-container:hover {
+  cursor: zoom-in;
+}

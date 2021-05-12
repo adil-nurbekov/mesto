@@ -25,6 +25,7 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
 // переменные секций элемент и элементс
 const elements = document.querySelector(".elements");
 const element = document.querySelector(".element");
@@ -55,16 +56,11 @@ const popupImageSaveButton = document.querySelector(".popup__form_image");
 const cardsTemplate = document.querySelector(".template");
 //
 
-const container = document.querySelector(".element__container");
-
-const titleImage = cardsTemplate.content.querySelector(".element__title");
-const linkImage = cardsTemplate.content.querySelector(".element__image");
-
 //переменные попапа увеличения картинки
-const popupPhoto = document.querySelector(".popup-photo");
-const popupPhotoCloseButton = document.querySelector(".popup-photo__close");
-const popupPhotoZoom = document.querySelector(".popup-photo__image");
-const popupPhotoText = document.querySelector(".popup-photo__text");
+const popupPhoto = document.querySelector(".popup_photo_add");
+const popupPhotoCloseButton = document.querySelector(".popup__close_photo");
+const popupPhotoZoom = document.querySelector(".popup__image");
+const popupPhotoText = document.querySelector(".popup__image-text");
 //
 
 // создание списка//
@@ -80,20 +76,21 @@ function createCards(cardText) {
     .setAttribute("alt", "Ой, что-то пошло не так...");
   //
 
-  // попап картинки
+  // открытие попапа картинки
   createCardsTemplate
     .querySelector(".element__image")
     .addEventListener("click", function () {
       popupPhotoZoom.src = cardText.link;
       popupPhotoText.textContent = cardText.name;
       openPopup(popupPhoto);
-      // popupPhoto.classList.add("popup-photo__open");
     });
+  //
 
-  function closePhotoPopup() {
-    popupPhoto.classList.remove("popup-photo__open");
-  }
-  popupPhotoCloseButton.addEventListener("click", closePhotoPopup);
+  // закрытие попапа картинки
+  popupPhotoCloseButton.addEventListener("click", function () {
+    closePopup(popupPhoto);
+  });
+  //
 
   // кнопка лайка
   createCardsTemplate

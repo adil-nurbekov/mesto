@@ -9,7 +9,9 @@
   outline: none;
   box-sizing: border-box;
   border: none;
+  transition: 0.3s linear;
 }
 .element__logo:hover {
   opacity: 0.5;
+  transform: scale(1.1);
 }

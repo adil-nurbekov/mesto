@@ -36,12 +36,11 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__save/popup__save.css);
 
-@import url(../blocks/popup-open/popup-open.css);
+@import url(../blocks/popup/_open/popup_open.css);
 
-@import url(../blocks/popup-photo/__content/popup-photo__content.css);
-@import url(../blocks/popup-photo/popup-photo.css);
-@import url(../blocks/popup-photo/__open/popup-photo__open.css);
-@import url(../blocks/popup-photo/__figure/popup-photo__figure.css);
-@import url(../blocks/popup-photo/__close/popup-photo__close.css);
-@import url(../blocks/popup-photo/__text/popup-photo__text.css);
-@import url(../blocks/popup-photo/__image/popup-photo__image.css);
+@import url(../blocks/popup/__photo-wraper/popup__photo-wraper.css);
+
+@import url(../blocks/popup/__figure/popup__figure.css);
+
+@import url(../blocks/popup/__image-text/popup__image-text.css);
+@import url(../blocks/popup/__image/popup__image.css);

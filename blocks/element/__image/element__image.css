@@ -6,3 +6,7 @@
   max-width: 232px;
   max-height: 232px;
 }
+.element__image:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
