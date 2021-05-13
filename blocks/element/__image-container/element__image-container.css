@@ -2,6 +2,7 @@
   max-width: 282px;
   max-height: 282px;
   overflow: hidden;
+  float: inline-end;
 }
 .element__image-container:hover {
   cursor: zoom-in;
