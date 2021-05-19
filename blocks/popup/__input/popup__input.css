@@ -13,3 +13,6 @@
   color: #000000;
   outline: none;
 }
+/* .popup__input:invalid {
+  border-bottom: 1px solid #ff0000;
+} */

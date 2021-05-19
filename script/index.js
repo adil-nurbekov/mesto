@@ -50,6 +50,7 @@ const buttonClosePopupImage = document.querySelector(".popup__close_image");
 const inputImage = document.querySelector(".popup__input_type_img");
 const inputImageLink = document.querySelector(".popup__input_type_link");
 const formPopupImage = document.querySelector(".popup__form_image");
+const popupList = document.querySelectorAll(".popup");
 //
 
 // переменная темплейт
@@ -87,12 +88,25 @@ function createCards(cardText) {
   createCardsTemplate
     .querySelector(".element__logo")
     .addEventListener("click", toggleClass);
+
   // кнопка удаления
   createCardsTemplate
     .querySelector(".element__delete-button")
     .addEventListener("click", removeCard);
   return createCardsTemplate;
 }
+
+// включение валидации вызовом enableValidation
+const config = {
+  formSelector: ".form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save",
+  inputErrorClass: "popup__input_type-error",
+  errorActiveClass: "popup__input_error_active",
+};
+enableValidation(config);
+//
+
 // функция добавления новых карточек
 function addImage(e) {
   e.preventDefault();
@@ -119,12 +133,24 @@ function removeCard(e) {
 // функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup-open");
+  document.removeEventListener("keydown", closePopupOnEsc);
 }
 //
 
 // функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup-open");
+  document.addEventListener("keydown", (e) => {
+    popupList.forEach((popup) => {
+      closePopupOnEsc(e, popup);
+    });
+  });
+}
+//
+
+// удаление попапа по кнопке ESC
+function closePopupOnEsc(e, popup) {
+  if (e.key === "Escape") closePopup(popup);
 }
 //
 
@@ -177,5 +203,14 @@ buttonAddPopupImage.addEventListener("click", function () {
 // закрытие попапа "popupPhoto"
 buttonClosePopupPhoto.addEventListener("click", function () {
   closePopup(popupPhoto);
+});
+//
+// закрытие попапа по клику за приделами контента
+Array.prototype.forEach.call(popupList, function (item) {
+  item.addEventListener("click", function (e) {
+    if (e.target === e.currentTarget) {
+      closePopup(item);
+    }
+  });
 });
 //

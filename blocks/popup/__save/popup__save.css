@@ -18,6 +18,10 @@
 .popup__save:hover {
   opacity: 0.8;
 }
+.popup__save:disabled {
+  background: #e5e5e5;
+  cursor: not-allowed;
+}
 @media (max-width: 767px) {
   .popup__save {
     font-size: 14px;

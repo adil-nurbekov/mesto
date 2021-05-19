@@ -182,27 +182,34 @@
         ></button>
         <h2 class="popup__title">Новое место</h2>
         <form
+          novalidate
           action="#"
           name="image-form"
-          class="popup__form popup__form_image"
+          class="form popup__form popup__form_image"
         >
           <input
             required
+            minlength="2"
+            maxlength="30"
             placeholder="Название"
             class="popup__input popup__input_type_img"
-            name="image-name"
+            id="image-name"
             type="text"
             value=""
           />
+          <span class="popup__input_error" id="image-name-error"></span>
           <input
             required
             placeholder="Ссылка на картинку"
-            name="image-link"
+            id="image-link"
             class="popup__input popup__input_type_link"
-            type="text"
+            type="url"
             value=""
           />
-          <input type="submit" value="Создать" class="popup__save hover" />
+          <span class="popup__input_error" id="image-link-error"></span>
+          <button type="submit" value="" class="popup__save hover">
+            Создать
+          </button>
         </form>
       </div>
     </div>
@@ -215,27 +222,36 @@
         ></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form
+          novalidate
           action="#"
           name="acc-form"
-          class="popup__form popup__form_profile"
+          class="form popup__form popup__form_profile"
         >
           <input
+            minlength="2"
+            maxlength="40"
             required
             placeholder="Ваше имя"
             class="popup__input popup__input_type_name"
-            name="acc-name"
+            id="acc-name"
             type="text"
-            value=""
+            value="Жак-Ив Кусто"
           />
+          <span class="popup__input_error" id="acc-name-error">erroor</span>
           <input
+            minlength="2"
+            maxlength="400"
             required
             placeholder="Ваша профессия"
-            name="acc-prof"
+            id="acc-prof"
             class="popup__input popup__input_type_job"
             type="text"
-            value=""
+            value="Исследователь океана"
           />
-          <input type="submit" value="Сохранить" class="popup__save hover" />
+          <span class="popup__input_error" id="acc-prof-error"></span>
+          <button type="submit" value="" class="popup__save hover">
+            Сохранить
+          </button>
         </form>
       </div>
     </div>
@@ -251,7 +267,7 @@
           <img class="element__image" />
         </div>
         <div class="element__container">
-          <h2 class="element__title">Image</h2>
+          <h2 class="element__title"></h2>
           <button
             type="button"
             aria-label="лайк"
@@ -260,7 +276,7 @@
         </div>
       </article>
     </template>
-
+    <script src="./script/validate.js"></script>
     <script src="./script/index.js"></script>
   </body>
 </html>
