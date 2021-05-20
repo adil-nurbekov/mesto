@@ -114,9 +114,9 @@ function openPopup(popup) {
   popup.classList.add("popup_open");
   document.addEventListener("keydown", closePopupOnEsc);
 
-  const form = document.querySelector(".form");
-  const popupInput = document.querySelector(".popup__input");
-  hideError(form, popupInput, config);
+  // const form = document.querySelector(".form");
+  // const popupInput = document.querySelector(".popup__input");    уточнить у наставника, как реализовать!!!!!!
+  // hideError(form, popupInput, config);
 }
 //
 
