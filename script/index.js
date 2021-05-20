@@ -1,32 +1,3 @@
-// переменные массива данных
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-const form = document.querySelector(".form");
-const popupInput = document.querySelector(".popup__input");
 // переменные секций элемент и элементс
 const elements = document.querySelector(".elements");
 const element = document.querySelector(".element");
@@ -142,12 +113,10 @@ function closePopup(popup) {
 function openPopup(popup) {
   popup.classList.add("popup_open");
   document.addEventListener("keydown", closePopupOnEsc);
-  // const { formSelector, inputSelector } = config;
-  // hideError(formSelector, inputSelector);
-  // inputImage.classList.remove("popup__input_type_error");
-  // inputImageLink.classList.remove("popup__input_type_error");
-  // inputName.classList.remove("popup__input_type_error");
-  // inputJob.classList.remove("popup__input_type_error");
+
+  const form = document.querySelector(".form");
+  const popupInput = document.querySelector(".popup__input");
+  hideError(form, popupInput, config);
 }
 //
 
