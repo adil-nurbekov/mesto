@@ -25,7 +25,8 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
+const form = document.querySelector(".form");
+const popupInput = document.querySelector(".popup__input");
 // переменные секций элемент и элементс
 const elements = document.querySelector(".elements");
 const element = document.querySelector(".element");
@@ -73,7 +74,7 @@ function createCards(cardText) {
   createCardsTemplate.querySelector(".element__title").textContent =
     cardText.name;
   imageCard.src = cardText.link;
-  imageCard.setAttribute("alt", "Ой, что-то пошло не так...");
+  imageCard.setAttribute("alt", cardText.name);
   //
 
   // открытие попапа картинки
@@ -101,8 +102,8 @@ const config = {
   formSelector: ".form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save",
-  inputErrorClass: "popup__input_type-error",
-  errorActiveClass: "popup__input_error_active",
+  inputErrorClass: "popup__input_type_error",
+  errorActiveClass: "popup__input-error_active",
 };
 enableValidation(config);
 //
@@ -132,25 +133,31 @@ function removeCard(e) {
 
 // функция закрытия попапа
 function closePopup(popup) {
-  popup.classList.remove("popup-open");
-  document.removeEventListener("keydown", closePopupOnEsc);
+  popup.classList.remove("popup_open");
+  document.addEventListener("keydown", closePopupOnEsc);
 }
 //
 
 // функция открытия попапа
 function openPopup(popup) {
-  popup.classList.add("popup-open");
-  document.addEventListener("keydown", (e) => {
-    popupList.forEach((popup) => {
-      closePopupOnEsc(e, popup);
-    });
-  });
+  popup.classList.add("popup_open");
+  document.addEventListener("keydown", closePopupOnEsc);
+  // const { formSelector, inputSelector } = config;
+  // hideError(formSelector, inputSelector);
+  // inputImage.classList.remove("popup__input_type_error");
+  // inputImageLink.classList.remove("popup__input_type_error");
+  // inputName.classList.remove("popup__input_type_error");
+  // inputJob.classList.remove("popup__input_type_error");
 }
 //
 
 // удаление попапа по кнопке ESC
-function closePopupOnEsc(e, popup) {
-  if (e.key === "Escape") closePopup(popup);
+function closePopupOnEsc(e) {
+  if (e.key === "Escape") {
+    const popupIsOpened = document.querySelector(".popup_open");
+    closePopup(popupIsOpened);
+    console.log("hi");
+  }
 }
 //
 
@@ -207,7 +214,7 @@ buttonClosePopupPhoto.addEventListener("click", function () {
 //
 // закрытие попапа по клику за приделами контента
 Array.prototype.forEach.call(popupList, function (item) {
-  item.addEventListener("click", function (e) {
+  item.addEventListener("mousedown", function (e) {
     if (e.target === e.currentTarget) {
       closePopup(item);
     }
