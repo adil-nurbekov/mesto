@@ -23,6 +23,7 @@ const inputImage = document.querySelector(".popup__input_type_img");
 const inputImageLink = document.querySelector(".popup__input_type_link");
 const formPopupImage = document.querySelector(".popup__form_image");
 const popupList = document.querySelectorAll(".popup");
+const saveButton = document.querySelector(".popup__save");
 //
 
 // переменная темплейт
@@ -52,6 +53,7 @@ function createCards(cardText) {
   imageCard.addEventListener("click", function () {
     popupPhotoZoom.src = cardText.link;
     popupPhotoText.textContent = cardText.name;
+    popupPhotoZoom.setAttribute("alt", cardText.name);
     openPopup(popupPhoto);
   });
   //
@@ -68,17 +70,6 @@ function createCards(cardText) {
   return createCardsTemplate;
 }
 
-// включение валидации вызовом enableValidation
-const config = {
-  formSelector: ".form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inputErrorClass: "popup__input_type_error",
-  errorActiveClass: "popup__input-error_active",
-};
-enableValidation(config);
-//
-
 // функция добавления новых карточек
 function addImage(e) {
   e.preventDefault();
@@ -87,6 +78,7 @@ function addImage(e) {
   const card = createCards({ name, link });
   elements.prepend(card);
   formPopupImage.reset();
+  saveButton.disabled = true;
   closePopup(popupImage);
 }
 //
@@ -108,15 +100,21 @@ function closePopup(popup) {
   document.addEventListener("keydown", closePopupOnEsc);
 }
 //
+// включение валидации вызовом enableValidation
+const config = {
+  formSelector: ".form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save",
+  inputErrorClass: "popup__input_type_error",
+  errorActiveClass: "popup__input-error_active",
+};
+enableValidation(config);
+//
 
 // функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup_open");
   document.addEventListener("keydown", closePopupOnEsc);
-
-  // const form = document.querySelector(".form");
-  // const popupInput = document.querySelector(".popup__input");    уточнить у наставника, как реализовать!!!!!!
-  // hideError(form, popupInput, config);
 }
 //
 
@@ -125,7 +123,6 @@ function closePopupOnEsc(e) {
   if (e.key === "Escape") {
     const popupIsOpened = document.querySelector(".popup_open");
     closePopup(popupIsOpened);
-    console.log("hi");
   }
 }
 //
@@ -169,11 +166,16 @@ formPopupProfile.addEventListener("submit", function (e) {
 buttonClosePopupImage.addEventListener("click", function () {
   closePopup(popupImage);
 });
+
 //
 
 // открытие попапа "popupImage"
 buttonAddPopupImage.addEventListener("click", function () {
   openPopup(popupImage);
+  inputImage.value = "";
+  inputImageLink.value = "";
+  // hideError(formPopupImage, inputImage, config);
+  // console.log(hideError(formPopupImage, inputImage, config));
 });
 
 // закрытие попапа "popupPhoto"
