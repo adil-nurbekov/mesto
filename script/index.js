@@ -1,5 +1,7 @@
 import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 // переменные секций элемент и элементс
+
 const elements = document.querySelector(".elements");
 const buttonEditPopupProfile = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
@@ -24,7 +26,13 @@ const popupList = document.querySelectorAll(".popup");
 const saveButton = document.querySelector(".popup__save");
 const formPopupImage = document.querySelector(".popup__form_image");
 //
-
+const config = {
+  formSelector: ".form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save",
+  inputErrorClass: "popup__input_type_error",
+  errorActiveClass: "popup__input-error_active",
+};
 //
 // создание списка//
 initialCards.forEach((item) => {
@@ -56,15 +64,8 @@ function closePopup(popup) {
 }
 //
 
-const config = {
-  formSelector: ".form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inputErrorClass: "popup__input_type_error",
-  errorActiveClass: "popup__input-error_active",
-};
 // включение валидации вызовом enableValidation
-enableValidation(config);
+// enableValidation(config);
 //
 
 // функция открытия попапа
@@ -86,7 +87,13 @@ function closePopupOnEsc(e) {
   }
 }
 //
-
+const hideError = (formElement, inputElement, config) => {
+  const { inputErrorClass, errorActiveClass } = config;
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  errorElement.classList.remove(errorActiveClass);
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.textContent = "";
+};
 // // лисенеры
 
 // добавление картинки
