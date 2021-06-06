@@ -1,10 +1,9 @@
 export { Card };
 //переменные попапа увеличения картинки
-const popupPhoto = document.querySelector(".popup_photo_add");
-const buttonClosePopupPhoto = document.querySelector(".popup__close_photo");
+import { openPopup } from "./index.js";
 const popupPhotoZoom = document.querySelector(".popup__image");
 const popupPhotoText = document.querySelector(".popup__image-text");
-
+const popupPhoto = document.querySelector(".popup_photo_add");
 class Card {
   constructor(data, place) {
     this._imageName = data.name;
@@ -25,12 +24,11 @@ class Card {
   // метод генирации карточек
   generateCard = () => {
     this._element = this._getTemplate();
-    this._element.querySelector(".element__image").src = this._imageLink;
-    this._element.querySelector(".element__title").textContent =
-      this._imageName;
-    this._element
-      .querySelector(".element__image")
-      .setAttribute("alt", this._imageName);
+    this._image = this._element.querySelector(".element__image");
+    this._image_title = this._element.querySelector(".element__title");
+    this._image.src = this._imageLink;
+    this._image.setAttribute("alt", this._imageName);
+    this._image_title.textContent = this._imageName;
     this._setEventListener();
     return this._element;
   };
@@ -41,13 +39,7 @@ class Card {
     popupPhotoZoom.src = this._imageLink;
     popupPhotoText.textContent = this._imageName;
     popupPhotoZoom.setAttribute("alt", this._imageName);
-    popupPhoto.classList.add("popup_open");
-  };
-  //
-
-  // метод закрытия попапа картинки
-  _handleClosePopup = () => {
-    popupPhoto.classList.remove("popup_open");
+    openPopup(popupPhoto);
   };
   //
 
@@ -60,11 +52,7 @@ class Card {
         this._handleOpenPopup();
       });
     //
-    // закрыте попапа по нажатию на крестик
-    buttonClosePopupPhoto.addEventListener("click", () => {
-      this._handleClosePopup();
-    });
-    //
+
     // кнопка лайка
     this._element
       .querySelector(".element__logo")
@@ -72,6 +60,7 @@ class Card {
         evt.target.classList.toggle("element__logo_active");
       });
     //
+
     // удаление карточки
     this._element
       .querySelector(".element__delete-button")
