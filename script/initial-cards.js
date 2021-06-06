@@ -1,4 +1,5 @@
 // переменные массива данных
+export { initialCards };
 const initialCards = [
   {
     name: "Архыз",

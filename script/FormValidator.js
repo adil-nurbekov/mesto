@@ -13,8 +13,8 @@ class FormValidator {
     this._inputList = Array.from(
       this._form.querySelectorAll(settings.inputSelector)
     );
-    this._buttonElement = Array.from(
-      this._form.querySelectorAll(settings.submitButtonSelector)
+    this._buttonElement = this._form.querySelector(
+      settings.submitButtonSelector
     );
   }
 
@@ -76,13 +76,12 @@ class FormValidator {
   // функция состояния кнопки
 
   _toggleButtonState = () => {
-    this._buttonElement.forEach((button) => {
-      if (this._hasInvalidInput()) {
-        button.disabled = true;
-      } else {
-        button.disabled = false;
-      }
-    });
+    if (this._hasInvalidInput()) {
+      this._buttonElement.disabled = true;
+    } else {
+      this._buttonElement.disabled = false;
+    }
   };
 }
+
 //

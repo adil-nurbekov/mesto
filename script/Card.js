@@ -25,10 +25,10 @@ class Card {
   generateCard = () => {
     this._element = this._getTemplate();
     this._image = this._element.querySelector(".element__image");
-    this._image_title = this._element.querySelector(".element__title");
+    this._imageTitle = this._element.querySelector(".element__title");
     this._image.src = this._imageLink;
     this._image.setAttribute("alt", this._imageName);
-    this._image_title.textContent = this._imageName;
+    this._imageTitle.textContent = this._imageName;
     this._setEventListener();
     return this._element;
   };
