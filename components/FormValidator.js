@@ -1,5 +1,4 @@
 export { FormValidator };
-const forms = Array.from(document.forms);
 
 class FormValidator {
   constructor(settings, form) {
