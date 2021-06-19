@@ -1,137 +1,144 @@
-import "../pages/index.css";
+import "../src/index.css";
 
-import { Card } from "../components/Card.js";
-import { FormValidator } from "../components/FormValidator.js";
 import {
   buttonEditPopupProfile,
   buttonAddPopupImage,
   popupProfile,
   formPopupProfile,
-  buttonClosePopupProfile,
   inputName,
   inputJob,
   popupImage,
-  buttonClosePopupImage,
   inputImage,
   inputImageLink,
-  popupList,
   formPopupImage,
-  buttonClosePopupPhoto,
   popupPhoto,
   config,
   initialCards,
   elements,
-} from "../utils/constants.js";
-import Section from "../components/Section.js";
+} from "./utils/constants.js";
 
-import { addImage } from "../utils/utils.js";
+import Section from "./components/Section.js";
+
+import { UserInfo } from "./components/UserInfo.js";
+
+import PopupWithImage from "./components/PopupWithImage.js";
+
+import PopupWithForm from "./components/PopupWithForm.js";
+
+import { Card } from "./components/Card";
+
+import { FormValidator } from "./components/FormValidator";
+
+// открытие попапа картинки
+const handleOpenImage = (name, link) => {
+  popupWithImage.open(name, link);
+};
 //
-import { Popup } from "../components/Popup";
-//
 
-import { UserInfo } from "../components/UserInfo.js";
+const addImage = (e) => {
+  e.preventDefault();
+  const card = new Card(
+    {
+      name: inputImage.value,
+      link: inputImageLink.value,
+    },
+    "template",
+    handleOpenImage
+  ).generateCard();
+  document.querySelector(elements).prepend(card);
+  formPopupImage.reset();
+  popupAddImageForm.close();
+};
 
-import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-
-import { closePopup } from "../utils/utils.js";
-import { hideError } from "../utils/utils.js";
-
-// создание списка//
+// экземпляр класса Section для создания начального списка//
 const defaultCardList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "template");
+      const card = new Card(item, "template", handleOpenImage);
       const cardElement = card.generateCard();
       defaultCardList.addItem(cardElement);
     },
   },
   elements
 );
-
 //
+// const createCard = (item) => {
+//   const card = new Card(item, "template", handleOpenImage);
+//   const cardElement = card.generateCard();
+// };
+// console.log(createCard);
+// метод отображение начальных карточек
 defaultCardList.renderItem();
-
-// открытие попапа картинки
-export const handleOpenImage = (name, link) => {
-  const popupImage = new PopupWithImage(popupPhoto).open(name, link);
-};
 //
 
-// закрытие попапа фото
-const ClosePopupPhoto = new Popup(popupPhoto).setEventListener(
-  buttonClosePopupPhoto
-);
+// экземпляр класса PopupWithImage
+const popupWithImage = new PopupWithImage(popupPhoto);
+
+// экземпляр класса PopupWithForm
+const popupProfileForm = new PopupWithForm(popupProfile, handleFormSubmit); // экземпляр формы профайла
+const popupAddImageForm = new PopupWithForm(popupImage, handleFormSubmit); // экземпляр формы добавления картинки
 //
+
+// метод закрытие попапа "popupProfile"
+popupProfileForm.setEventListener();
+//
+
+function handleFormSubmit() {
+  user.setUserInfo(inputName, inputJob); // метод добавления данных инпута в инфо профайла
+  popupProfileForm.close(); // метод закрытия попапа профайла
+}
+// метод закрытие попапа "popupImage"
+popupAddImageForm.setEventListener();
+//
+
+// метод закрытие попапа "popupPhoto"
+popupWithImage.setEventListener();
+//
+
+// экземпляр класса UserInfo
+const user = new UserInfo(inputName, inputJob);
+//
+
+// экземпляр класса "FormValidator"
+const addImagePopupValidator = new FormValidator(config, formPopupImage); // экземпляр валидайии попапа добавления картинки
+const profilePopupValidator = new FormValidator(config, formPopupProfile); // экземпляр валидации папапа профайла
+//
+
+// // LISTENERS // //
 
 // добавление картинки
 formPopupImage.addEventListener("submit", addImage);
 //
 
-// // LISTENERS // //
-
 // открытие попапа "popupProfile" (инпут = тексту профайла )
 buttonEditPopupProfile.addEventListener("click", () => {
-  const popupOpenProfile = new PopupWithForm(popupProfile).open();
-  const popupInputValue = new UserInfo(inputName, inputJob).getUserInfo();
+  popupProfileForm.open(); // метод открытия попапа
+  user.getUserInfo(); // метод отображения инфо профайла в инпутах профайла
+  profilePopupValidator.resetValidation();
 });
-//
-
-// закрытие попапа "popupProfile"
-const ClosePopupProfile = new Popup(popupProfile).setEventListener(
-  buttonClosePopupProfile
-);
 //
 
 // открытие попапа "popupImage"
-buttonAddPopupImage.addEventListener("click", function () {
-  const popupOpenImage = new Popup(popupImage).open();
+buttonAddPopupImage.addEventListener("click", () => {
+  popupAddImageForm.open(); // метод открытия попапа "popupImage"
   inputImage.value = "";
   inputImageLink.value = "";
-  const form = document
-    .querySelector(popupImage)
-    .querySelector(config.formSelector);
-  const inputList = form.querySelectorAll(config.inputSelector);
-  inputList.forEach((input) => {
-    hideError(form, input, config);
-  });
+  addImagePopupValidator.resetValidation();
 });
-// //
-
-// // закрытие попапа "popupImage"
-const ClosePopupImage = new Popup(popupImage).setEventListener(
-  buttonClosePopupImage
-);
 //
 
 // добавление данных в профайл (текст профайла = инпут)
-formPopupProfile.addEventListener("submit", () => {
-  const profileTextContent = new UserInfo(inputName, inputJob).setUserInfo();
-  const submitProfile = new PopupWithForm(popupProfile).close();
-});
-//
-
-// закрытие попапа по клику за приделами контента
-Array.prototype.forEach.call(popupList, function (item) {
-  item.addEventListener("mousedown", function (e) {
-    if (e.target === e.currentTarget) {
-      closePopup(item);
-    }
-  });
-});
+// formPopupProfile.addEventListener("submit", () => {
+//   user.setUserInfo(inputName, inputJob); // метод добавления данных инпута в инфо профайла
+//   popupProfileForm.close(); // метод закрытия попапа профайла
+// });
 //
 
 // VALIDATORS //
 // валидатор формы профайла
-const profilePopup = new FormValidator(
-  config,
-  formPopupProfile
-).enableValidation();
+profilePopupValidator.enableValidation();
 //
 // валидатор формы добавления картинок
-const addImagePopup = new FormValidator(
-  config,
-  formPopupImage
-).enableValidation();
+addImagePopupValidator.enableValidation();
 //

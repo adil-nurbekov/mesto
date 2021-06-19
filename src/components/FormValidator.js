@@ -1,5 +1,3 @@
-export { FormValidator };
-
 class FormValidator {
   constructor(settings, form) {
     this._formSelector = settings.formSelector;
@@ -33,7 +31,6 @@ class FormValidator {
         this._checkValidity(input);
         this._toggleButtonState(input);
       });
-      this._toggleButtonState(input);
     });
   };
   //
@@ -43,7 +40,7 @@ class FormValidator {
     if (!input.validity.valid) {
       this._showError(input);
     } else {
-      this.hideError(input);
+      this._hideError(input);
     }
   };
   //
@@ -58,7 +55,7 @@ class FormValidator {
   //
 
   // функция скрывающая ошибку
-  hideError = (input) => {
+  _hideError = (input) => {
     const errorElement = this._form.querySelector(`#${input.id}-error`);
     errorElement.classList.remove(this._inputActiveClass);
     input.classList.remove(this._inputErrorClass);
@@ -81,6 +78,12 @@ class FormValidator {
       this._buttonElement.disabled = false;
     }
   };
-}
+  resetValidation() {
+    this._toggleButtonState();
 
-//
+    this._inputList.forEach((inputElement) => {
+      this._hideError(inputElement);
+    });
+  }
+}
+export { FormValidator };

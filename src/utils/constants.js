@@ -25,6 +25,7 @@ export {
   config,
   popupOpen,
   buttonClosePopup,
+  submitButton,
 };
 const initialCards = [
   {
@@ -79,7 +80,7 @@ const formPopupProfile = document.querySelector(".popup__form_profile");
 const inputName = document.querySelector(".popup__input_type_name");
 const inputJob = document.querySelector(".popup__input_type_job");
 //
-
+const submitButton = document.querySelector("profile__image");
 // переменные попапа добавления картинок
 const popupImage = ".popup_image_add";
 const buttonClosePopupImage = ".popup__close_image";

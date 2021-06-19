@@ -1,16 +1,9 @@
-export { Card };
-import { handleOpenImage } from "../src/index.js";
-// import { openPopup } from "../src/index.js";
-import {
-  popupPhoto,
-  popupPhotoZoom,
-  popupPhotoText,
-} from "../utils/constants.js";
 class Card {
   constructor(data, place, handleOpenImage) {
     this._imageName = data.name;
     this._imageLink = data.link;
     this._place = place;
+    this._handleOpenImage = handleOpenImage;
   }
 
   // метод получения темплейта
@@ -45,7 +38,7 @@ class Card {
   _setEventListener = () => {
     //открытие попапа по нажатию на картинку
     this._image.addEventListener("click", () =>
-      handleOpenImage(this._imageName, this._imageLink)
+      this._handleOpenImage(this._imageName, this._imageLink)
     );
 
     //
@@ -62,3 +55,4 @@ class Card {
     });
   };
 }
+export { Card };
