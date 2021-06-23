@@ -12,6 +12,7 @@
   line-height: 17px;
   color: #000000;
   outline: none;
+  white-space: normal;
 }
 /* .popup__input:invalid {
   border-bottom: 1px solid #ff0000;

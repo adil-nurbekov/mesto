@@ -7,11 +7,12 @@
 
     <title>Место</title>
   </head>
+
   <body class="body">
     <header class="header">
       <img
         class="header__logo"
-        src="<%=require('../images/logo.svg')%>"
+        src="<%=require('../src/images/logo.svg')%>"
         alt="логотип"
       />
     </header>
@@ -19,13 +20,13 @@
       <section class="profile">
         <img
           class="profile__image"
-          src="<%=require('../images/image.jpg')%>"
+          src="<%=require('../src/images/image.jpg')%>"
           alt="Аватар пользователя"
         />
         <div class="profile__container">
           <div class="profile__description">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__profession">Исследователь океана</p>
+            <h1 class="profile__name" name="profile_acc_name">Жак-Ив Кусто</h1>
+            <p name="prof" class="profile__profession">Исследователь океана</p>
           </div>
           <button
             aria-label="Редактировать"

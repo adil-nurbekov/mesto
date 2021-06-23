@@ -3,7 +3,7 @@ class Popup {
     this._popup = document.querySelector(popup);
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleOverlayClose = this._handleOverlayClose.bind(this);
-    this._buttonClosePopup = document.querySelectorAll(".popup__close");
+    this._buttonClosePopup = this._popup.querySelector(".popup__close");
   }
   open() {
     this._popup.classList.add("popup_open");
@@ -26,14 +26,10 @@ class Popup {
     }
   }
   setEventListener() {
-    this._buttonClosePopup.forEach((item) => {
-      item.addEventListener("click", () => {
-        this.close(item);
-      });
+    this._buttonClosePopup.addEventListener("click", () => {
+      this.close();
     });
-    document.addEventListener("keydown", this._handleEscClose);
-
-    document.addEventListener("click", this._handleOverlayClose);
   }
 }
+
 export { Popup };

@@ -66,8 +66,8 @@ const config = {
 
 const elements = ".elements";
 const buttonEditPopupProfile = document.querySelector(".profile__edit-button");
-const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__profession");
+const profileName = ".profile__name";
+const profileJob = ".profile__profession";
 const buttonAddPopupImage = document.querySelector(".profile__add-button");
 //
 const popupOpen = document.querySelector(".popup_open");
