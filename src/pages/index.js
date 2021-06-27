@@ -8,8 +8,6 @@ import {
   inputName,
   inputJob,
   popupImage,
-  inputImage,
-  inputImageLink,
   formPopupImage,
   popupPhoto,
   config,
@@ -37,8 +35,9 @@ const handleOpenImage = (name, link) => {
 };
 //
 
-const creatCard = () => {
-  const card = document.createElement("template");
+// функция создания
+const creatCard = (item) => {
+  const card = new Card(item, "template", handleOpenImage).generateCard();
   return card;
 };
 
@@ -47,29 +46,37 @@ const defaultCardList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "template", handleOpenImage).generateCard();
-      defaultCardList.addItem(card);
+      creatCard(item);
+      defaultCardList.addItem(creatCard(item));
     },
   },
   elements
 );
 //
 
-console.log(creatCard);
+// экземпляр класса PopupWithForm для попапа профайла
+const popupProfileForm = new PopupWithForm({
+  popup: popupProfile,
+  handleFormSubmit: (item) => {
+    user.setUserInfo(item);
+    popupProfileForm.close();
+  },
+});
 
 // эксземпляр класса PopupWithForm для попапа картинки
 const popupAddImageForm = new PopupWithForm({
   popup: popupImage,
-  handleFormSubmit: () => {
-    const newCard = new Card(
-      {
-        name: inputImage.value,
-        link: inputImageLink.value,
-      },
-      "template",
-      handleOpenImage
-    ).generateCard();
-    defaultCardList.addItem(newCard);
+  handleFormSubmit: (input) => {
+    creatCard({
+      name: input["input-image-name"],
+      link: input["input-image-url"],
+    });
+    defaultCardList.addItem(
+      creatCard({
+        name: input["input-image-name"],
+        link: input["input-image-url"],
+      })
+    );
     popupAddImageForm.close();
   },
 });
@@ -82,15 +89,6 @@ defaultCardList.renderItem();
 // экземпляр класса PopupWithImage
 const popupWithImage = new PopupWithImage(popupPhoto);
 //
-
-// экземпляр класса PopupWithForm для попапа профайла
-const popupProfileForm = new PopupWithForm({
-  popup: popupProfile,
-  handleFormSubmit: () => {
-    user.setUserInfo({ name: inputName.value, prof: inputJob.value });
-    popupProfileForm.close();
-  },
-});
 
 // экземпляр класса UserInfo
 const user = new UserInfo(profileName, profileJob);

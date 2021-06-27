@@ -9,10 +9,9 @@ class UserInfo {
       prof: this._profileProf.textContent,
     };
   }
-  setUserInfo({ name, prof }) {
-    this._profileName.textContent = name;
-    this._profileProf.textContent = prof;
-    console.log(name, prof);
+  setUserInfo(input) {
+    this._profileName.textContent = input["input-profile-name"];
+    this._profileProf.textContent = input["input-profile-profession"];
   }
 }
 export { UserInfo };
