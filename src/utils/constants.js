@@ -1,6 +1,5 @@
 // переменные массива данных
 export {
-  initialCards,
   elements,
   buttonEditPopupProfile,
   profileName,
@@ -25,34 +24,12 @@ export {
   config,
   popupOpen,
   buttonClosePopup,
-  submitButton,
+  profileImage,
+  popupConfirm,
+  deleteButton,
+  avatarButton,
+  popupAvatar,
 };
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
 
 const config = {
   formSelector: ".form",
@@ -80,11 +57,11 @@ const formPopupProfile = document.querySelector(".popup__form_profile");
 const inputName = document.querySelector(".popup__input_type_name");
 const inputJob = document.querySelector(".popup__input_type_job");
 //
-const submitButton = document.querySelector("profile__image");
+const profileImage = ".profile__image";
 // переменные попапа добавления картинок
 const popupImage = ".popup_image_add";
 const buttonClosePopupImage = ".popup__close_image";
-
+const popupConfirm = ".popup__confirm";
 const inputImage = document.querySelector(".popup__input_type_img");
 const inputImageLink = document.querySelector(".popup__input_type_link");
 const popupList = document.querySelectorAll(".popup");
@@ -93,8 +70,11 @@ const formPopupImage = document.querySelector(".popup__form_image");
 
 const buttonClosePopupPhoto = ".popup__close_photo";
 const popupPhoto = ".popup_photo_add";
+const popupAvatar = ".popup__avatar_add";
 //
 
+const avatarButton = document.querySelector(".profile__edit_image");
+const deleteButton = document.querySelector(".profile__image");
 //переменные попапа увеличения картинки
 const popupPhotoZoom = document.querySelector(".popup__image");
 const popupPhotoText = document.querySelector(".popup__image-text");

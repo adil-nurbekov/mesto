@@ -18,10 +18,11 @@
     </header>
     <main class="main">
       <section class="profile">
+        <img class="profile__image hover" src="" alt="Аватар пользователя" />
         <img
-          class="profile__image"
-          src="<%=require('../src/images/image.jpg')%>"
-          alt="Аватар пользователя"
+          class="profile__edit_image"
+          src="<%=require('../src/images/edit.svg')%>"
+          alt="логотип"
         />
         <div class="profile__container">
           <div class="profile__description">
@@ -55,6 +56,57 @@
           <img class="popup__image" src="#" alt="Картинка" />
           <figcaption class="popup__image-text">text</figcaption>
         </figure>
+      </div>
+    </div>
+
+    <div class="popup popup__avatar_add">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close popup__close_image hover"
+        ></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form
+          novalidate
+          action="#"
+          name="avatar-form"
+          class="form popup__form popup__form_avatar"
+        >
+          <input
+            required
+            minlength="2"
+            maxlength=""
+            placeholder="Ссылка на картинку"
+            class="popup__input popup__input_type_avatar"
+            id="avatar-name"
+            type="url"
+            value=""
+            name="input-avatar-name"
+          />
+          <span class="popup__input-error" id="avatar-name-error"></span>
+
+          <button type="submit" value="" class="popup__save hover">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup__confirm">
+      <div class="popup__content">
+        <button
+          type="button"
+          class="popup__close popup__close_image hover"
+        ></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form
+          novalidate
+          action="#"
+          name="confirm-form"
+          class="form popup__form popup__form_confirm"
+        >
+          <button type="submit" value="" class="popup__save hover">Да</button>
+        </form>
       </div>
     </div>
 
@@ -160,7 +212,8 @@
             type="button"
             aria-label="лайк"
             class="element__logo hover"
-          ></button>
+          ></button
+          ><span class="element__counter">1</span>
         </div>
       </article>
     </template>

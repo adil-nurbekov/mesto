@@ -8,6 +8,7 @@ import {
   inputName,
   inputJob,
   popupImage,
+  popupConfirm,
   formPopupImage,
   popupPhoto,
   config,
@@ -15,6 +16,12 @@ import {
   elements,
   profileName,
   profileJob,
+  profileImage,
+  inputImage,
+  inputImageLink,
+  deleteButton,
+  avatarButton,
+  popupAvatar,
 } from "../utils/constants.js";
 
 import Section from "../components/Section";
@@ -29,29 +36,51 @@ import { Card } from "../components/Card";
 
 import { FormValidator } from "../components/FormValidator";
 
+import { Api } from "../components/Api";
+import { PopupWithConfirm } from "../components/PopupWithConfirm";
+import { PopupWithAvatar } from "../components/PopupWithAvatar";
+
 // открытие попапа картинки
 const handleOpenImage = (name, link) => {
   popupWithImage.open(name, link);
 };
-//
 
-// функция создания
+//  функция создания карточки
 const creatCard = (item) => {
   const card = new Card(item, "template", handleOpenImage).generateCard();
   return card;
 };
+//
 
 // экземпляр класса Section для создания начального списка//
 const defaultCardList = new Section(
   {
-    data: initialCards,
+    data: "",
     renderer: (item) => {
-      creatCard(item);
-      defaultCardList.addItem(creatCard(item));
+      defaultCardList.addItems(creatCard(item));
     },
   },
   elements
 );
+//
+
+// функция добавления данных с серевера в профайл
+const addProfileInfo = (items) => {
+  document.querySelector(profileName).textContent = items.name;
+  document.querySelector(profileJob).textContent = items.about;
+  document.querySelector(profileImage).src = items.avatar;
+};
+//
+
+// данные для класса Api
+const options = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-25",
+  token: "236a1e48-2d85-4cef-ba03-6e49fa3c5b91",
+};
+//
+
+// создание экземпляра класса Api
+const api = new Api(options);
 //
 
 // экземпляр класса PopupWithForm для попапа профайла
@@ -60,6 +89,20 @@ const popupProfileForm = new PopupWithForm({
   handleFormSubmit: (item) => {
     user.setUserInfo(item);
     popupProfileForm.close();
+    api.editProfileInfo({
+      name: item["input-profile-name"],
+      about: item["input-profile-profession"],
+    });
+  },
+});
+
+const popupAvatarForm = new PopupWithForm({
+  popup: popupAvatar,
+  handleFormSubmit: (input) => {
+    api.editAvatarImage({
+      avatar: input["input-avatar-name"],
+    });
+    popupAvatarForm.close();
   },
 });
 
@@ -67,28 +110,35 @@ const popupProfileForm = new PopupWithForm({
 const popupAddImageForm = new PopupWithForm({
   popup: popupImage,
   handleFormSubmit: (input) => {
-    creatCard({
-      name: input["input-image-name"],
-      link: input["input-image-url"],
-    });
-    defaultCardList.addItem(
+    defaultCardList.addItems(
       creatCard({
         name: input["input-image-name"],
         link: input["input-image-url"],
       })
     );
+    api.postCard({
+      name: input["input-image-name"],
+      link: input["input-image-url"],
+    });
     popupAddImageForm.close();
   },
 });
 //
+// api.deleteCard();
 
-// метод отображение начальных карточек
-defaultCardList.renderItem();
+// метод для отображения начального списка
+api.getCards().then((items) => defaultCardList.renderItems(items));
+// .then((items) => console.log(items));
 //
+api.getProfileInfo().then((items) => addProfileInfo(items));
 
+Promise.all([api.getCards(), api.getProfileInfo()]);
 // экземпляр класса PopupWithImage
 const popupWithImage = new PopupWithImage(popupPhoto);
 //
+const popupWithConfirm = new PopupWithConfirm(popupConfirm);
+
+const popupWithAvatar = new PopupWithAvatar(popupAvatar);
 
 // экземпляр класса UserInfo
 const user = new UserInfo(profileName, profileJob);
@@ -110,8 +160,19 @@ popupAddImageForm.setEventListener();
 // метод закрытие попапа "popupPhoto"
 popupWithImage.setEventListener();
 //
+popupWithConfirm.setEventListener();
+
+popupAvatarForm.setEventListener();
 
 // // LISTENERS // //
+
+deleteButton.addEventListener("click", () => {
+  popupWithConfirm.open();
+});
+
+avatarButton.addEventListener("click", () => {
+  popupWithAvatar.open();
+});
 
 // открытие попапа "popupProfile" (инпут = тексту профайла )
 buttonEditPopupProfile.addEventListener("click", () => {

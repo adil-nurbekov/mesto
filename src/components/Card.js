@@ -1,9 +1,13 @@
+// import { Api } from "./Api";
+// import { options } from "../pages/index";
+// deleteCard = new Api(options);
 class Card {
   constructor(data, place, handleOpenImage) {
     this._imageName = data.name;
     this._imageLink = data.link;
     this._place = place;
     this._handleOpenImage = handleOpenImage;
+    // this.ownerId = ownerId._id;
   }
 
   // метод получения темплейта
@@ -46,6 +50,7 @@ class Card {
     // кнопка лайка
     this._like.addEventListener("click", (evt) => {
       evt.target.classList.toggle("element__logo_active");
+      // console.log(this.ownerId);
     });
     //
 

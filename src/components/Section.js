@@ -5,12 +5,12 @@ export default class Section {
     this._renderer = renderer;
   }
 
-  addItem(element) {
-    this._container.prepend(element);
-  }
-  renderItem() {
-    this._renderedItems.forEach((item) => {
+  addItems = (element) => {
+    this._container.append(element);
+  };
+  renderItems = (array) => {
+    array.forEach((item) => {
       this._renderer(item);
     });
-  }
+  };
 }

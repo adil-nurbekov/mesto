@@ -1,11 +1,15 @@
 .profile__image {
   max-width: 127.75px;
-  /* object-fit: cover; */
+  object-fit: contain;
   border-radius: 50%;
+  position: relative;
 }
 @media (max-width: 767px) {
   .profile__image {
     padding-left: auto;
     padding-right: auto;
   }
+}
+.profile__image:hover {
+  opacity: 0.5;
 }
