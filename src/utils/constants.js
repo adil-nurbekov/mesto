@@ -63,7 +63,7 @@ const profileImage = ".profile__image";
 // переменные попапа добавления картинок
 const popupImage = ".popup_image_add";
 const buttonClosePopupImage = ".popup__close_image";
-const popupConfirm = ".popup__confirm";
+const popupConfirm = ".popup_confirm";
 const inputImage = document.querySelector(".popup__input_type_img");
 const inputImageLink = document.querySelector(".popup__input_type_link");
 const popupList = document.querySelectorAll(".popup");
@@ -72,7 +72,7 @@ const formPopupImage = document.querySelector(".popup__form_image");
 
 const buttonClosePopupPhoto = ".popup__close_photo";
 const popupPhoto = ".popup_photo_add";
-const popupAvatar = ".popup__avatar_add";
+const popupAvatar = ".popup__avatar-add";
 //
 
 const avatarImage = document.querySelector(".profile__edit-image");
