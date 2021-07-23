@@ -26,9 +26,10 @@ export {
   buttonClosePopup,
   profileImage,
   popupConfirm,
-  deleteButton,
-  avatarButton,
+  avatarImage,
   popupAvatar,
+  counter,
+  formPopupAvatar,
 };
 
 const config = {
@@ -40,12 +41,13 @@ const config = {
 };
 
 // переменные секций элемент и элементс
-
+const formPopupAvatar = document.querySelector(".popup__form_avatar");
 const elements = ".elements";
 const buttonEditPopupProfile = document.querySelector(".profile__edit-button");
 const profileName = ".profile__name";
 const profileJob = ".profile__profession";
 const buttonAddPopupImage = document.querySelector(".profile__add-button");
+const counter = document.querySelector(".element__counter");
 //
 const popupOpen = document.querySelector(".popup_open");
 const buttonClosePopup = document.querySelectorAll(".popup__close");
@@ -73,8 +75,8 @@ const popupPhoto = ".popup_photo_add";
 const popupAvatar = ".popup__avatar_add";
 //
 
-const avatarButton = document.querySelector(".profile__edit_image");
-const deleteButton = document.querySelector(".profile__image");
+const avatarImage = document.querySelector(".profile__edit_image");
+
 //переменные попапа увеличения картинки
 const popupPhotoZoom = document.querySelector(".popup__image");
 const popupPhotoText = document.querySelector(".popup__image-text");

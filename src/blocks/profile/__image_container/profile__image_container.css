@@ -1,0 +1,9 @@
+.profile__image_container {
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  width: 127px;
+  height: 127px;
+  position: relative;
+  overflow: hidden;
+}

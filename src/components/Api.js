@@ -19,9 +19,26 @@ class Api {
       .catch((err) => console.log(err));
   };
   //
+  editAvatarImage = (data) => {
+    return fetch(`${this.url}/users/me/avatar `, {
+      method: "PATCH",
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      })
+      .catch((err) => console.log(err));
+  };
   // метод отправки новой инфо о пользователе
   editProfileInfo = (data) => {
-    fetch(`${this.url}/users/me `, {
+    return fetch(`${this.url}/users/me `, {
       method: "PATCH",
       headers: {
         authorization: this.token,
@@ -56,7 +73,7 @@ class Api {
   //
   // метод добавления карточек на сервер
   postCard = (data) => {
-    fetch(`${this.url}/cards`, {
+    return fetch(`${this.url}/cards`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,8 +91,8 @@ class Api {
   };
   //
   // метод удаления карточек с сервера
-  deleteCard = () => {
-    fetch(`${this.url}/cards/60e86a492422580036871a51`, {
+  deleteCard = (cardId) => {
+    return fetch(`${this.url}/cards/` + cardId, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -92,10 +109,10 @@ class Api {
   };
   //
   // метод отправки лайка на сервер
-  sendLikeToServer = (data) => {
-    fetch(`${this.url}/cards/likes`, {
+  sendLikeToServer = (cardId, data) => {
+    return fetch(`${this.url}/cards/likes/` + cardId, {
       method: "PUT",
-      body: JSON.stringify(data),
+      body: JSON.stringify({ likes: data }),
       headers: {
         "Content-Type": "application/json",
         authorization: this.token,
@@ -107,14 +124,15 @@ class Api {
         }
         return Promise.reject(`Что-то пошло не так: ${res.status}`);
       })
+
       .catch((err) => console.log(err));
   };
   //
   // метод удаления лайка с сервера
-  deleteLikeFromServer = (data) => {
-    fetch(`${this.url}/cards/likes`, {
+  deleteLikeFromServer = (cardId, data) => {
+    return fetch(`${this.url}/cards/likes/` + cardId, {
       method: "DELETE",
-      body: JSON.stringify(data),
+      body: JSON.stringify({ likes: data }),
       headers: {
         "Content-Type": "application/json",
         authorization: this.token,
@@ -129,23 +147,6 @@ class Api {
       .catch((err) => console.log(err));
   };
   //
-  editAvatarImage = (data) => {
-    fetch(`${this.url}/users/me/avatar `, {
-      method: "PATCH",
-      headers: {
-        authorization: this.token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
-  };
 }
 
 export { Api };

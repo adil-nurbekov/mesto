@@ -1,9 +1,25 @@
 .profile__image {
-  max-width: 127.75px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  position: relative;
+  object-fit: cover;
+  transition: 2s;
 }
+.profile__edit_image {
+  position: absolute;
+  /* top: 50%; */
+  left: 40%;
+  transform: translate(-50%, -50%);
+  transform: translateY(-100%);
+  transition: transform 1s linear;
+}
+.profile__image:hover {
+  transform: scale(1.1);
+}
+.profile__image:hover + .profile__edit_image {
+  transform: translateY(200%);
+}
+
 @media (max-width: 767px) {
   .profile__image {
     padding-left: auto;
