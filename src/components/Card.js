@@ -96,10 +96,10 @@ class Card {
     this._like.addEventListener("click", () => {
       if (this._like.classList.contains("element__logo_active")) {
         this._removeLikeFromServer(this._cardId);
-        this._deleteLike(this._likes);
+        this._deleteLike(this._likes.length);
       } else {
         this._addLikeToServer(this._cardId);
-        this._addLike(this._likes);
+        this._addLike(this._likes.length);
       }
     });
     //

@@ -72,7 +72,7 @@ const formPopupImage = document.querySelector(".popup__form_image");
 
 const buttonClosePopupPhoto = ".popup__close_photo";
 const popupPhoto = ".popup_photo_add";
-const popupAvatar = ".popup__avatar-add";
+const popupAvatar = ".popup_avatar-add";
 //
 
 const avatarImage = document.querySelector(".profile__edit-image");
