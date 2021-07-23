@@ -75,7 +75,7 @@ const popupPhoto = ".popup_photo_add";
 const popupAvatar = ".popup__avatar_add";
 //
 
-const avatarImage = document.querySelector(".profile__edit_image");
+const avatarImage = document.querySelector(".profile__edit-image");
 
 //переменные попапа увеличения картинки
 const popupPhotoZoom = document.querySelector(".popup__image");
