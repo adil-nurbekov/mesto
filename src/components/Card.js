@@ -1,6 +1,9 @@
+import { elements } from "../utils/constants";
+
 class Card {
   constructor(
     data,
+    ownersId,
     classElement,
     handleOpenImage,
 
@@ -17,6 +20,7 @@ class Card {
     this._cardId = data._id;
     this._addLikeToServer = addLikeToServer;
     this._removeLikeFromServer = removeLikeFromServer;
+    this._id = ownersId;
   }
 
   // метод получения темплейта
@@ -31,7 +35,7 @@ class Card {
 
   // метод создания кнопки удаления
   _createDeleteButton() {
-    if (this._ownerId === this._myId) {
+    if (this._ownerId === this._id) {
       const deleteButton = document.createElement("button");
       deleteButton.classList.add("element__delete-button");
       deleteButton.type = "button";
@@ -52,37 +56,52 @@ class Card {
     this._imageTitle = this._element.querySelector(".element__title");
     this._like = this._element.querySelector(".element__logo");
     this._counter = this._element.querySelector(".element__counter");
-    this._myId = "986b932711e1c5d3df1e33a3";
     //
     this._image.src = this._imageLink;
     this._image.setAttribute("alt", this._imageName);
     this._imageTitle.textContent = this._imageName;
+    this._counter.textContent = this._likes.length;
     this._setEventListener();
     this._createDeleteButton();
-    this._isLiked(this._like);
-    this._counter.textContent = this._likes.length;
+    this._isLiked();
+
     return this._element;
+  };
+  deleteCard = () => {
+    this._element.remove();
   };
 
   // метод закрашивания лайка при нажатии
-  _isLiked = (like) => {
+  _isLiked = () => {
     this._likes.forEach((element) => {
-      if (element._id === this._myId) {
-        like.classList.add("element__logo_active");
+      if (element._id === this._id) {
+        this._like.classList.add("element__logo_active");
       }
     });
   };
 
-  // метод отображения количества лайков
-  _addLike = (data) => {
-    this._like.classList.add("element__logo_active");
-    return (this._counter.textContent = String(data));
-  };
+  // setLikeInfo = (data) => {
+  //   // this._likes = data.likes;
+  //   // this._updateLikesView();
 
-  _deleteLike = (data) => {
-    this._like.classList.remove("element__logo_active");
-    return (this._counter.textContent = String(data));
-  };
+  // };
+  // _updateLikesView = () => {
+  //   this._counter.textContent = this._likes.length;
+  //   if (this._like.classList.contains("element__logo_active")) {
+  //   } else {
+  //     this._like.classList.add("element__logo_active");
+  //   }
+  // };
+  // метод отображения количества лайков
+  // _addLike = (data) => {
+  //   this._like.classList.add("element__logo_active");
+  //   return (this._counter.textContent = data);
+  // };
+
+  // _deleteLike = (data) => {
+  //   this._like.classList.remove("element__logo_active");
+  //   return (this._counter.textContent = data);
+  // };
 
   // метод листенеров
   _setEventListener = () => {
@@ -96,10 +115,9 @@ class Card {
     this._like.addEventListener("click", () => {
       if (this._like.classList.contains("element__logo_active")) {
         this._removeLikeFromServer(this._cardId);
-        this._deleteLike(this._likes.length);
+        this.setLikeInfo();
       } else {
         this._addLikeToServer(this._cardId);
-        this._addLike(this._likes.length);
       }
     });
     //

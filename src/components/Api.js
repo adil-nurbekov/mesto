@@ -9,16 +9,10 @@ class Api {
       headers: {
         authorization: this.token,
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
   };
   //
+  // метод замены аватара пользователя
   editAvatarImage = (data) => {
     return fetch(`${this.url}/users/me/avatar `, {
       method: "PATCH",
@@ -27,14 +21,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
   };
   // метод отправки новой инфо о пользователе
   editProfileInfo = (data) => {
@@ -45,14 +32,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
   };
   //
   // метод получения карточек с сервера
@@ -61,14 +41,7 @@ class Api {
       headers: {
         authorization: this.token,
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
   };
   //
   // метод добавления карточек на сервер
@@ -80,14 +53,7 @@ class Api {
         authorization: this.token,
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
   };
   //
   // метод удаления карточек с сервера
@@ -95,56 +61,44 @@ class Api {
     return fetch(`${this.url}/cards/` + cardId, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         authorization: this.token,
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
   };
   //
   // метод отправки лайка на сервер
-  sendLikeToServer = (cardId, data) => {
-    return fetch(`${this.url}/cards/likes/` + cardId, {
-      method: "PUT",
-      body: JSON.stringify({ likes: data }),
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this.token,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-
-      .catch((err) => console.log(err));
-  };
+  // sendLikeToServer = (cardId, data) => {
+  //   return fetch(`${this.url}/cards/likes/` + cardId, {
+  //     method: "PUT",
+  //     body: JSON.stringify({ likes: data }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: this.token,
+  //     },
+  //   }).then((res) => this._checkResponseStatus(res));
+  // };
   //
   // метод удаления лайка с сервера
-  deleteLikeFromServer = (cardId, data) => {
+  handleLike = (cardId, data, like) => {
     return fetch(`${this.url}/cards/likes/` + cardId, {
-      method: "DELETE",
+      method: like ? "PUT" : "DELETE",
       body: JSON.stringify({ likes: data }),
       headers: {
         "Content-Type": "application/json",
         authorization: this.token,
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => this._checkResponseStatus(res));
+  };
+  // метод проверки ответа с сервера
+  _checkResponseStatus = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Что-то пошло не так: ${res.status}`);
+  };
+  // метод ожидания нужных промисов
+  getDataFromServer = () => {
+    return Promise.all([this.getCards(), this.getProfileInfo()]);
   };
   //
 }

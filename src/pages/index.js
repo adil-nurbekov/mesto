@@ -36,39 +36,6 @@ import { Api } from "../components/Api";
 
 import { PopupWithConfirm } from "../components/PopupWithConfirm";
 
-const handleOpenImage = (name, link) => {
-  popupWithImage.open(name, link);
-};
-
-//  функция создания карточки
-const creatCard = (data) => {
-  const card = new Card(data, "template", handleOpenImage, {
-    handleDeleteCard: (cardId) => {
-      popupWithConfirm.setOnSubmit(() => {
-        api.deleteCard(cardId).then(() => {
-          card.remove();
-          popupWithConfirm.close();
-        });
-      });
-      popupWithConfirm.open();
-      popupWithConfirm.setEventListener();
-    },
-    addLikeToServer: (cardId) => {
-      api.sendLikeToServer(cardId, data).then((data) => {
-        console.log(data);
-      });
-    },
-    removeLikeFromServer: (cardId) => {
-      api.deleteLikeFromServer(cardId, data).then((data) => {
-        console.log(data);
-      });
-    },
-  }).generateCard();
-
-  return card;
-};
-
-//
 // экземпляр класса PopupWithConfirm
 const popupWithConfirm = new PopupWithConfirm(popupConfirm);
 //
@@ -78,7 +45,57 @@ const popupWithImage = new PopupWithImage(popupPhoto);
 //
 
 // экземпляр класса UserInfo
-const user = new UserInfo(profileName, profileJob);
+const user = new UserInfo(profileName, profileJob, profileImage);
+//
+
+let ownersId = "00000";
+
+const showError = (err) => {
+  console.log(err);
+};
+
+const handleOpenImage = (name, link) => {
+  popupWithImage.open(name, link);
+};
+
+//  функция создания карточки
+const creatCard = (data) => {
+  const card = new Card(data, ownersId, "template", handleOpenImage, {
+    handleDeleteCard: (cardId) => {
+      popupWithConfirm.open();
+      popupWithConfirm.setOnSubmit(() => {
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            card.remove();
+            popupWithConfirm.close();
+          })
+          .catch((err) => showError(err));
+      });
+
+      popupWithConfirm.setEventListener();
+    },
+    addLikeToServer: (cardId) => {
+      api.handleLike(cardId, data, true).then((data) => {
+        card.querySelector(".element__counter").textContent = data.likes.length;
+        card
+          .querySelector(".element__logo")
+          .classList.add("element__logo_active");
+        // card.setLikeInfo();
+      });
+    },
+    removeLikeFromServer: (cardId) => {
+      api.handleLike(cardId, data, false).then((data) => {
+        card.querySelector(".element__counter").textContent = data.likes.length;
+        card
+          .querySelector(".element__logo")
+          .classList.remove("element__logo_active");
+      });
+    },
+  }).generateCard();
+
+  return card;
+};
 //
 
 // экземпляр класса Section для создания начального списка//
@@ -121,11 +138,13 @@ const popupProfileForm = new PopupWithForm({
         name: input["input-profile-name"],
         about: input["input-profile-profession"],
       })
-      .then(() => {
-        user.setUserInfo(input);
+      .then((data) => {
+        user.setUserInfo(data.name, data.about);
         popupProfileForm.renderLoading(false);
         popupProfileForm.close();
-      });
+      })
+      .catch((err) => showError(err))
+      .finally(() => popupProfileForm.renderLoading(false));
     popupProfileForm.renderLoading(true);
   },
 });
@@ -144,8 +163,9 @@ const popupAvatarForm = new PopupWithForm({
         user.setUserAvatar(data.avatar);
         popupAvatarForm.renderLoading(false);
         popupAvatarForm.close();
-        console.log(data);
-      });
+      })
+      .catch((err) => showError(err))
+      .finally(() => popupProfileForm.renderLoading(false));
     popupAvatarForm.renderLoading(true);
   },
 });
@@ -162,12 +182,9 @@ const popupAddImageForm = new PopupWithForm({
         link: input["input-image-url"],
       })
       .then((data) => {
-        section.addItem(
-          creatCard(data),
-          popupAddImageForm.close(),
-          console.log(data)
-        );
-      });
+        section.addItem(creatCard(data), popupAddImageForm.close());
+      })
+      .catch((err) => showError(err));
   },
 });
 
@@ -179,8 +196,17 @@ popupAddImageForm.setEventListener();
 popupWithImage.setEventListener();
 //
 
-api.getCards().then((items) => section.renderItems(items));
-api.getProfileInfo().then((items) => addProfileInfo(items));
+// метод ожидания ответа от сервера
+api
+  .getDataFromServer()
+  .then((items) => {
+    const [getCardInfo, getProfileInfo] = items;
+    addProfileInfo(getProfileInfo); // функция отображения начальной информации профайла
+    ownersId = getProfileInfo._id;
+    section.renderItems(getCardInfo); // метод отображения начальной информации карточек
+  })
+  .catch((err) => showError(err));
+//
 
 // экземпляр класса "FormValidator"
 const addImagePopupValidator = new FormValidator(config, formPopupImage); // экземпляр валидайии попапа добавления картинки
