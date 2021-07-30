@@ -64,7 +64,7 @@ class Card {
     this._counter.textContent = this._likes.length;
     this._setEventListener();
     this._createDeleteButton();
-    this._setLikeInfo(this._data);
+    this.setLikeInfo(this._data);
 
     return this._element;
   };
@@ -72,18 +72,19 @@ class Card {
     this._element.remove();
   };
 
-  // метод закрашивания лайка при нажатии
+  // метод проверки лайка от пользователя
   isLiked = () => {
     return this._likes.some((element) => element._id === this._id);
   };
 
-  _setLikeInfo = (item) => {
+  // метод отображения информации о лайке
+  setLikeInfo = (item) => {
     this._likes = item.likes;
     this.updateLikesView(item);
   };
 
+  // метод отображения новой информации о лайке
   updateLikesView = (item) => {
-    this._likes = item.likes;
     this._counter.textContent = item.likes.length;
     if (this.isLiked()) {
       this._like.classList.add("element__logo_active");
@@ -98,7 +99,6 @@ class Card {
     this._image.addEventListener("click", () =>
       this._handleOpenImage(this._imageName, this._imageLink)
     );
-    //
 
     // кнопка лайка
     this._like.addEventListener("click", () => {

@@ -76,7 +76,7 @@ const creatCard = (data) => {
     },
     handleClickLike: (cardId, thisCard) => {
       api.handleLike(cardId, thisCard.isLiked()).then((data) => {
-        thisCard.updateLikesView(data);
+        thisCard.setLikeInfo(data);
       });
     },
   }).generateCard();
@@ -156,6 +156,7 @@ popupAvatarForm.setEventListener();
 const popupAddImageForm = new PopupWithForm({
   popup: popupImage,
   handleFormSubmit: (input) => {
+    popupAddImageForm.renderCreating(true);
     api
       .postCard({
         name: input["input-image-name"],
@@ -163,8 +164,10 @@ const popupAddImageForm = new PopupWithForm({
       })
       .then((data) => {
         section.addItem(creatCard(data), popupAddImageForm.close());
+        popupAddImageForm.renderCreating(false);
       })
-      .catch((err) => showError(err));
+      .catch((err) => showError(err))
+      .finally(() => popupAddImageForm.renderCreating(false));
   },
 });
 
