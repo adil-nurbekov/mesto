@@ -66,25 +66,12 @@ class Api {
     }).then((res) => this._checkResponseStatus(res));
   };
   //
-  // метод отправки лайка на сервер
-  // sendLikeToServer = (cardId, data) => {
-  //   return fetch(`${this.url}/cards/likes/` + cardId, {
-  //     method: "PUT",
-  //     body: JSON.stringify({ likes: data }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: this.token,
-  //     },
-  //   }).then((res) => this._checkResponseStatus(res));
-  // };
-  //
-  // метод удаления лайка с сервера
-  handleLike = (cardId, data, like) => {
+
+  // метод удаления или отправки лайка с сервера
+  handleLike = (cardId, like) => {
     return fetch(`${this.url}/cards/likes/` + cardId, {
-      method: like ? "PUT" : "DELETE",
-      body: JSON.stringify({ likes: data }),
+      method: like ? "DELETE" : "PUT",
       headers: {
-        "Content-Type": "application/json",
         authorization: this.token,
       },
     }).then((res) => this._checkResponseStatus(res));

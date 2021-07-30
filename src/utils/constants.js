@@ -30,6 +30,7 @@ export {
   popupAvatar,
   counter,
   formPopupAvatar,
+  options,
 };
 
 const config = {
@@ -39,6 +40,12 @@ const config = {
   inputErrorClass: "popup__input_type_error",
   errorActiveClass: "popup__input-error_active",
 };
+// данные для класса Api
+const options = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-26",
+  token: "50c40ac8-f6bb-40c6-a49e-ec56d515b265",
+};
+//
 
 // переменные секций элемент и элементс
 const formPopupAvatar = document.querySelector(".popup__form_avatar");

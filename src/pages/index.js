@@ -18,7 +18,10 @@ import {
   profileImage,
   popupAvatar,
   formPopupAvatar,
+  options,
 } from "../utils/constants.js";
+
+import { showError } from "../utils/utils";
 
 import Section from "../components/Section";
 
@@ -50,46 +53,30 @@ const user = new UserInfo(profileName, profileJob, profileImage);
 
 let ownersId = "00000";
 
-const showError = (err) => {
-  console.log(err);
-};
-
-const handleOpenImage = (name, link) => {
-  popupWithImage.open(name, link);
-};
-
 //  функция создания карточки
 const creatCard = (data) => {
-  const card = new Card(data, ownersId, "template", handleOpenImage, {
-    handleDeleteCard: (cardId) => {
+  const card = new Card({
+    data: data,
+    ownersId: ownersId,
+    classElement: "template",
+    handleOpenImage: () => {
+      popupWithImage.open(data.name, data.link);
+    },
+    handleDeleteCard: (cardId, thisCard) => {
       popupWithConfirm.open();
       popupWithConfirm.setOnSubmit(() => {
         api
           .deleteCard(cardId)
           .then(() => {
-            card.remove();
+            thisCard.deleteCard();
             popupWithConfirm.close();
           })
           .catch((err) => showError(err));
       });
-
-      popupWithConfirm.setEventListener();
     },
-    addLikeToServer: (cardId) => {
-      api.handleLike(cardId, data, true).then((data) => {
-        card.querySelector(".element__counter").textContent = data.likes.length;
-        card
-          .querySelector(".element__logo")
-          .classList.add("element__logo_active");
-        // card.setLikeInfo();
-      });
-    },
-    removeLikeFromServer: (cardId) => {
-      api.handleLike(cardId, data, false).then((data) => {
-        card.querySelector(".element__counter").textContent = data.likes.length;
-        card
-          .querySelector(".element__logo")
-          .classList.remove("element__logo_active");
+    handleClickLike: (cardId, thisCard) => {
+      api.handleLike(cardId, thisCard.isLiked()).then((data) => {
+        thisCard.updateLikesView(data);
       });
     },
   }).generateCard();
@@ -97,7 +84,7 @@ const creatCard = (data) => {
   return card;
 };
 //
-
+popupWithConfirm.setEventListener();
 // экземпляр класса Section для создания начального списка//
 const section = new Section(
   {
@@ -115,13 +102,6 @@ const addProfileInfo = (items) => {
   document.querySelector(profileName).textContent = items.name;
   document.querySelector(profileJob).textContent = items.about;
   document.querySelector(profileImage).src = items.avatar;
-};
-//
-
-// данные для класса Api
-const options = {
-  url: "https://mesto.nomoreparties.co/v1/cohort-26",
-  token: "50c40ac8-f6bb-40c6-a49e-ec56d515b265",
 };
 //
 
